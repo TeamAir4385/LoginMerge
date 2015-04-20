@@ -1,0 +1,8 @@
+"/home/derrick/Documents/programming/Titanium/Derrick-master/build/android/gen/android/support/v7/appcompat/R.java"
+"/home/derrick/Documents/programming/Titanium/Derrick-master/build/android/gen/com/goapplication/ApplicationStylesheet.java"
+"/home/derrick/Documents/programming/Titanium/Derrick-master/build/android/gen/com/goapplication/AssetCryptImpl.java"
+"/home/derrick/Documents/programming/Titanium/Derrick-master/build/android/gen/com/goapplication/GoApplicationActivity.java"
+"/home/derrick/Documents/programming/Titanium/Derrick-master/build/android/gen/com/goapplication/GoApplicationAppInfo.java"
+"/home/derrick/Documents/programming/Titanium/Derrick-master/build/android/gen/com/goapplication/GoApplicationApplication.java"
+"/home/derrick/Documents/programming/Titanium/Derrick-master/build/android/gen/com/goapplication/R.java"
+"/home/derrick/Documents/programming/Titanium/Derrick-master/build/android/gen/ti/modules/titanium/ui/R.java"

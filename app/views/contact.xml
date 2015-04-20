@@ -1,0 +1,12 @@
+<Alloy>
+	<Window id="contact" title="Contact Us" onOpen="doOpen" >
+		<Label top="15" left="10" right="10">Please feel free to contact us if you are interested or have any questions!</Label>
+		<View id="lvContainer" top="65" >
+	        <TextField id="textField1" class='tfWrapper' hintText="First Name"  />	        
+	        <TextField id="textField2" class='tfWrapper' hintText="Last Name"  /> 
+	        <TextField id="textField3" class='tfWrapper' hintText="Email Address"  />
+	        <TextField id="textField4" class='tfWrapper' hintText="Phone Number"  />
+        </View>
+        <Button id="submit" title="Submit" color="#fff" bottom="150"/>
+	</Window>
+</Alloy>
