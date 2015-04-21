@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <property name="acs-api-key-production" type="string">eGjM1NZqBAvb8kbCIJQpudFdK32l0iAn</property>
-    <property name="acs-api-key-development" type="string">RV3orTuIQ51fEgviFIP0l0boUClZZcrG</property>
+    <property name="acs-api-key-production" type="string">zVQ6altk03APCOxFjBJlfSITP70Zsz7k</property>
+    <property name="acs-api-key-development" type="string">PySupKzDhHKVDDunnBOJndMlBbQQPpNZ</property>
     <id>com.goapplication</id>
     <name>Go Application</name>
     <version>1.0</version>

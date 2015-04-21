@@ -1,1 +1,1 @@
-/home/derrick/Documents/programming/Titanium/Derrick-master/Resources/android/alloy/styles/index.js
+module.exports=[{isClass:!0,priority:10000.002,key:"container",style:{}}];

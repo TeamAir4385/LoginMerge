@@ -1,1 +1,1 @@
-/home/derrick/Documents/programming/Titanium/Derrick-master/Resources/android/app.js
+var Alloy=require("alloy"),_=Alloy._,Backbone=Alloy.Backbone;Alloy.createController("index");

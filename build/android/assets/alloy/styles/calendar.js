@@ -1,1 +1,1 @@
-/home/derrick/Documents/programming/Titanium/Derrick-master/Resources/android/alloy/styles/calendar.js
+module.exports=[{isClass:!0,priority:10000.0003,key:"container",style:{}}];

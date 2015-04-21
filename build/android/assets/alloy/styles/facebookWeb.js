@@ -1,1 +1,1 @@
-/home/derrick/Documents/programming/Titanium/Derrick-master/Resources/android/alloy/styles/facebookWeb.js
+module.exports=[{isClass:!0,priority:10000.001,key:"container",style:{}}];
