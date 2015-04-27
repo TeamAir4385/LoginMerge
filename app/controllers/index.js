@@ -14,6 +14,56 @@ if (OS_ANDROID) {
 	$.index.open();
 }
 
+
+//This is what the documentation says to do in regards to setting up Cloudpush modules retrievedDeviceToken(). --Lauren
+var CloudPush = require('ti.cloudpush');
+CloudPush.retrieveDeviceToken({
+    success: function deviceTokenSuccess(e) {
+        // Use this device token with Ti.Cloud.PushNotifications calls
+        // to subscribe and unsubscribe to push notification channels
+        Ti.API.info('Device Token: ' + e.deviceToken);
+    },
+    error: function deviceTokenError(e) {
+        alert('Failed to register for push! ' + e.error);
+    }
+});
+// These events monitor incoming push notifications
+CloudPush.addEventListener('callback', function (evt) {
+    alert(evt.payload);
+});
+//trayClickedLauncehdApp is fired when a tray notification is shown and the app is not being ran (appcelerator.com). --Lauren
+CloudPush.addEventListener('trayClickLaunchedApp', function (evt) {
+    Ti.API.info('Tray Click Launched App (app was not running)');
+});
+//trayClickedFocusedApp is fired when a tray notificiation is shown and the app is already being ran (appcelerator.com). --Lauren
+CloudPush.addEventListener('trayClickFocusedApp', function (evt) {
+    Ti.API.info('Tray Click Focused App (app was already running)');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function initializePushNotifications(_user) {
 
   Alloy.Globals.pushToken = null;
@@ -67,6 +117,25 @@ function initializePushNotifications(_user) {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

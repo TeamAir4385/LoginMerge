@@ -56,6 +56,24 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.home.getView().open();
+    var CloudPush = require("ti.cloudpush");
+    CloudPush.retrieveDeviceToken({
+        success: function(e) {
+            Ti.API.info("Device Token: " + e.deviceToken);
+        },
+        error: function(e) {
+            alert("Failed to register for push! " + e.error);
+        }
+    });
+    CloudPush.addEventListener("callback", function(evt) {
+        alert(evt.payload);
+    });
+    CloudPush.addEventListener("trayClickLaunchedApp", function() {
+        Ti.API.info("Tray Click Launched App (app was not running)");
+    });
+    CloudPush.addEventListener("trayClickFocusedApp", function() {
+        Ti.API.info("Tray Click Focused App (app was already running)");
+    });
     $.loginSuccessAction = function(_options) {
         initializePushNotifications(_options.model);
         Ti.API.info("logged in user information");
