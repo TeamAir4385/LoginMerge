@@ -3,7 +3,7 @@
  * Help here would be appreciated. I think this is where it is having an 
  * issue loading for iOS.
  */
-
+/*
 if (OS_IOS) {
 	Alloy.Globals.navgroup = $.index;
 }
@@ -13,55 +13,54 @@ if (OS_ANDROID) {
 } else {
 	$.index.open();
 }
-
+*/
 
 //This is what the documentation says to do in regards to setting up Cloudpush modules retrievedDeviceToken(). --Lauren
+// Require the module
+
 var CloudPush = require('ti.cloudpush');
+var Cloud = require("ti.cloud");
+var deviceToken = null;
+ 
+// Initialize the module
 CloudPush.retrieveDeviceToken({
-    success: function deviceTokenSuccess(e) {
-        // Use this device token with Ti.Cloud.PushNotifications calls
-        // to subscribe and unsubscribe to push notification channels
-        Ti.API.info('Device Token: ' + e.deviceToken);
-    },
-    error: function deviceTokenError(e) {
-        alert('Failed to register for push! ' + e.error);
-    }
+    success: deviceTokenSuccess,
+    error: deviceTokenError
 });
-// These events monitor incoming push notifications
+// Enable push notifications for this device
+// Save the device token for subsequent API calls
+function deviceTokenSuccess(e) {
+	alert('please work' + e.deviceToken);
+    deviceToken = e.deviceToken;
+    subscribeToChannel(deviceToken);
+}
+function deviceTokenError(e) {
+    alert('Failed to register for push notifications! ' + e.error);
+}
+ 
+// Process incoming push notifications
 CloudPush.addEventListener('callback', function (evt) {
-    alert(evt.payload);
-});
-//trayClickedLauncehdApp is fired when a tray notification is shown and the app is not being ran (appcelerator.com). --Lauren
-CloudPush.addEventListener('trayClickLaunchedApp', function (evt) {
-    Ti.API.info('Tray Click Launched App (app was not running)');
-});
-//trayClickedFocusedApp is fired when a tray notificiation is shown and the app is already being ran (appcelerator.com). --Lauren
-CloudPush.addEventListener('trayClickFocusedApp', function (evt) {
-    Ti.API.info('Tray Click Focused App (app was already running)');
+    alert("Notification received: " + evt.payload);
 });
 
 
+function subscribeToChannel (deviceToken) {
+ // Subscribes the device to the 'news_alerts' channel
+ // Specify the push type as either 'android' for Android or 'ios' for iOS
+    Cloud.PushNotifications.subscribeToken({
+        device_token: deviceToken,
+        channel: 'news_alerts',
+        type: Ti.Platform.name == 'android' ? 'android' : 'ios'
+    }, function (e) {
+ if (e.success) {
+            alert('Subscribed');
+        } else {
+            alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+        }
+    });
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
 
 
 function initializePushNotifications(_user) {
@@ -121,25 +120,6 @@ function initializePushNotifications(_user) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $.loginSuccessAction = function(_options) {
 
   initializePushNotifications(_options.model);
@@ -171,3 +151,7 @@ $.loginSuccessAction = function(_options) {
 };
 
 //code runs on Android without this. 
+
+*/
+
+$.index.open();

@@ -1,6 +1,6 @@
 {
-	"target": "emulator",
-	"deployType": "development",
+	"target": "device",
+	"deployType": "test",
 	"classname": "GoApplication",
 	"platformPath": "C:\\ProgramData\\Titanium\\mobilesdk\\win32\\3.5.0.GA\\android",
 	"modulesHash": "7fb655db1d51a26b74a2778ab4a02a6b",
@@ -19,14 +19,14 @@
 	"guid": "e7e55ef5-a7ab-462b-b9a1-fc2a64e28d36",
 	"icon": "appicon.png",
 	"fullscreen": false,
-	"skipJSMinification": true,
+	"skipJSMinification": false,
 	"mergeCustomAndroidManifest": false,
-	"encryptJS": false,
+	"encryptJS": true,
 	"minSDK": 10,
 	"targetSDK": 21,
-	"propertiesHash": "68204100374f7ec31997c469a79c3a0e",
+	"propertiesHash": "1b6e2783852333c06d29c8d49be49349",
 	"activitiesHash": "d41d8cd98f00b204e9800998ecf8427e",
 	"servicesHash": "d41d8cd98f00b204e9800998ecf8427e",
 	"jssFilesHash": "d41d8cd98f00b204e9800998ecf8427e",
-	"jarLibHash": "7656f3fb14ee79065c0e25a8201c1523"
+	"jarLibHash": "c2a6d22b7e8e66cee7a1e8c04e16f71c"
 }

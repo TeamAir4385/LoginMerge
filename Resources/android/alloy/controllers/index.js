@@ -8,30 +8,21 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
-    function initializePushNotifications(_user) {
-        Alloy.Globals.pushToken = null;
-        var pushLib = require("pushNotifications");
-        pushLib.initialize(_user, function(_pushData) {
-            Ti.API.info("I GOT A PUSH NOTIFICATION");
-            var payload;
-            try {
-                payload = _pushData.payload ? JSON.parse(_pushData.payload) : _pushData;
-            } catch (e) {
-                payload = {};
-            }
-            Ti.UI.createAlertDialog({
-                title: payload.android.title || "Alert",
-                message: payload.android.alert || "",
-                buttonNames: [ "Ok" ]
-            }).show();
-        }, function(_pushInitData) {
-            if (_pushInitData.success) {
-                Alloy.Globals.pushToken = _pushInitData.data.deviceToken;
-                Ti.API.debug("Success: Initializing Push Notifications " + JSON.stringify(_pushInitData));
-            } else {
-                alert("Error Initializing Push Notifications");
-                Alloy.Globals.pushToken = null;
-            }
+    function deviceTokenSuccess(e) {
+        alert("please work" + e.deviceToken);
+        deviceToken = e.deviceToken;
+        subscribeToChannel(deviceToken);
+    }
+    function deviceTokenError(e) {
+        alert("Failed to register for push notifications! " + e.error);
+    }
+    function subscribeToChannel(deviceToken) {
+        Cloud.PushNotifications.subscribeToken({
+            device_token: deviceToken,
+            channel: "news_alerts",
+            type: "android"
+        }, function(e) {
+            alert(e.success ? "Subscribed" : "Error:\n" + (e.error && e.message || JSON.stringify(e)));
         });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -49,44 +40,28 @@ function Controller() {
     }
     var $ = this;
     var exports = {};
-    $.__views.home = Alloy.createController("home", {
-        id: "home"
+    $.__views.index = Ti.UI.createWindow({
+        id: "index"
     });
-    $.__views.home && $.addTopLevelView($.__views.home);
+    $.__views.index && $.addTopLevelView($.__views.index);
+    $.__views.__alloyId7 = Ti.UI.createLabel({
+        text: "Hello",
+        id: "__alloyId7"
+    });
+    $.__views.index.add($.__views.__alloyId7);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.home.getView().open();
     var CloudPush = require("ti.cloudpush");
+    var Cloud = require("ti.cloud");
+    var deviceToken = null;
     CloudPush.retrieveDeviceToken({
-        success: function(e) {
-            Ti.API.info("Device Token: " + e.deviceToken);
-        },
-        error: function(e) {
-            alert("Failed to register for push! " + e.error);
-        }
+        success: deviceTokenSuccess,
+        error: deviceTokenError
     });
     CloudPush.addEventListener("callback", function(evt) {
-        alert(evt.payload);
+        alert("Notification received: " + evt.payload);
     });
-    CloudPush.addEventListener("trayClickLaunchedApp", function() {
-        Ti.API.info("Tray Click Launched App (app was not running)");
-    });
-    CloudPush.addEventListener("trayClickFocusedApp", function() {
-        Ti.API.info("Tray Click Focused App (app was already running)");
-    });
-    $.loginSuccessAction = function(_options) {
-        initializePushNotifications(_options.model);
-        Ti.API.info("logged in user information");
-        Ti.API.info(JSON.stringify(_options.model, null, 2));
-        $.tabGroup.open();
-        $.tabGroup.setActiveTab(0);
-        $.feedController.initialize();
-        Alloy.Globals.currentUser = _options.model;
-        $.feedController.parentController = $;
-        $.friendsController.parentController = $;
-        $.settingsController.parentController = $;
-        $.loginController && $.loginController.close();
-    };
+    $.index.open();
     _.extend($, exports);
 }
 
